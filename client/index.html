@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일본인 친구 만들기</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <header>
+        <h1>일본인 친구 만들기</h1>
+    </header>
+    <main>
+        <form id="registration-form">
+            <label for="name">이름:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">이메일:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="interest">관심사:</label>
+            <textarea id="interest" name="interest"></textarea>
+            
+            <button type="submit">가입하기</button>
+        </form>
+        <div id="message"></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
