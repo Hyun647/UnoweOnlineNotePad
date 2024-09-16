@@ -96,4 +96,4 @@ addCodeBlockButton.addEventListener('click', () => {
 ```
 
 ## 문의
-궁금한 점이나 제안 사항이 있다면 [이슈](https://github.com/Hyun647/project6520.git/issues)에 남겨주세요! 💬
+궁금한 점이나 제안 사항이 있다면 chodohyun0407@icloud.com 에 남겨주세요! 💬
