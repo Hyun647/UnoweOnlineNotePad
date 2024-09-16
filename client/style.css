@@ -91,6 +91,7 @@ textarea:not(.hidden) ~ #add-code-block {
     display: block;
 }
 
+
 /* 작은 화면 (모바일)에서 레이아웃 조정 */
 @media (max-width: 768px) {
     h1 {
@@ -129,4 +130,33 @@ textarea:not(.hidden) ~ #add-code-block {
         height: 100%; /* 고정된 높이 */
         font-size: 14px; /* 데스크탑 화면에서 텍스트 크기 */
     }
+}
+
+pre.code-block {
+    position: relative; /* 언어 이름을 표시할 위치 설정 */
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    white-space: pre-wrap; /* 코드 블록에서 공백 및 줄바꿈 유지 */
+    font-family: 'Courier New', Courier, monospace;
+    overflow-x: auto; /* 코드가 너무 길면 가로 스크롤 */
+    box-sizing: border-box;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* 코드 블록 그림자 */
+}
+
+pre.code-block .language {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 0.75em; /* 작은 크기로 설정 */
+    color: #b0b0b0; /* 언어 이름 색상 */
+}
+/* <code> 태그에 별도의 스타일을 주지 않음, 기본 스타일 유지 */
+code {
+    display: block; /* 기본적인 블록 스타일 유지 */
+    white-space: pre-wrap; /* 줄 바꿈 및 공백 유지 */
 }
