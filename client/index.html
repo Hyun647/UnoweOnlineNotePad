@@ -1,30 +1,73 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>일본인 친구 만들기</title>
-    <link rel="stylesheet" href="./index.css">
+    <title>Real-time Post Board</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .post {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>일본인 친구 만들기</h1>
-    </header>
-    <main>
-        <form id="registration-form">
-            <label for="name">이름:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="email">이메일:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="interest">관심사:</label>
-            <textarea id="interest" name="interest"></textarea>
-            
-            <button type="submit">가입하기</button>
-        </form>
-        <div id="message"></div>
-    </main>
-    <script src="script.js"></script>
+    <h1>Post Board</h1>
+    <textarea id="postInput" placeholder="Write something..."></textarea>
+    <button id="postButton">Post</button>
+    <div id="posts"></div>
+
+    <script>
+        const socket = io();
+        const postInput = document.getElementById('postInput');
+        const postButton = document.getElementById('postButton');
+        const postsDiv = document.getElementById('posts');
+
+        // 기존 글 불러오기
+        socket.on('loadPosts', (posts) => {
+            console.log('Loading posts:', posts); // 기존 글 로드 확인
+            postsDiv.innerHTML = '';
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.textContent = post;
+                postsDiv.appendChild(postElement);
+            });
+        });
+
+        // 글 추가
+        socket.on('updatePosts', (posts) => {
+            console.log('Updated posts:', posts); // 업데이트된 글 확인
+            postsDiv.innerHTML = '';
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.textContent = post;
+                postsDiv.appendChild(postElement);
+            });
+        });
+
+        // 새 글 작성 후 서버로 전송
+        postButton.addEventListener('click', () => {
+            const post = postInput.value.trim();
+            if (post) {
+                console.log('Sending new post:', post); // 새로운 글 전송 확인
+                socket.emit('newPost', post);
+                postInput.value = '';
+            }
+        });
+    </script>
 </body>
 </html>
