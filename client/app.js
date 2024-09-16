@@ -10,7 +10,7 @@ memo.addEventListener('input', () => {
     socket.send(message);
 });
 
-// 서버에서 받은 메모를 문자열로 표시
+// 서버에서 받은 메모를 표시
 socket.onmessage = (event) => {
     const reader = new FileReader();
     
