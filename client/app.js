@@ -20,7 +20,7 @@ memo.addEventListener('input', () => {
 socket.onmessage = (event) => {
     const data = event.data;
     memo.value = data;  // 메모에 직접 반영
-    renderContent(data);
+    renderContent(data);  // 마크다운 변환 및 표시
 };
 
 // 코드 블록 추가 버튼 클릭 시 새로운 코드 블록 생성
@@ -32,11 +32,11 @@ addCodeBlockButton.addEventListener('click', () => {
     const beforeText = memo.value.substring(0, cursorPosition);
     const afterText = memo.value.substring(cursorPosition);
 
-    // 새로운 코드 블록을 정의 (비어 있음)
-    const newCodeBlock = '\n<code>\n\n</code>\n';
+    // 새로운 코드 블록을 정의 (마크다운 코드 블록 구문)
+    const newCodeBlock = '\n```\n\n```\n';
 
     // 코드 블록을 삽입할 위치를 계산
-    const newCursorPosition = beforeText.length + newCodeBlock.indexOf('') + 8;
+    const newCursorPosition = beforeText.length + newCodeBlock.length;
 
     // 기존 텍스트와 새로운 코드 블록을 결합
     memo.value = beforeText + newCodeBlock + afterText;
@@ -48,36 +48,20 @@ addCodeBlockButton.addEventListener('click', () => {
     memo.focus();
 });
 
+// 마크다운 렌더러 정의
+const renderer = new marked.Renderer();
+
+renderer.code = (code, language) => {
+    // 언어 이름을 표시할 span 추가
+    const languageLabel = language ? `<span class="language">${language}</span>` : '';
+    return `<pre class="code-block">${languageLabel}<code>${code}</code></pre>`;
+};
+
 // 메모 내용에 코드 블록이 포함되어 있으면 코드 박스 생성
 function renderContent(content) {
-    const lines = content.split('\n');
-    let html = '';
-    let inCodeBlock = false;
+    // 마크다운을 HTML로 변환
+    const html = marked.parse(content, { renderer: renderer });
 
-    lines.forEach(line => {
-        if (line.startsWith('<code>')) {
-            if (inCodeBlock) {
-                html += '</div>'; // 코드 블록 종료
-            }
-            inCodeBlock = true;
-            html += '<div class="code-block">';
-        } else if (line === '</code>') {
-            if (inCodeBlock) {
-                html += '</div>'; // 코드 블록 종료
-                inCodeBlock = false;
-            }
-        } else {
-            if (inCodeBlock) {
-                html += line + '\n'; // 코드 블록 내 텍스트 추가
-            } else {
-                html += line + '<br>'; // 일반 텍스트
-            }
-        }
-    });
-
-    if (inCodeBlock) {
-        html += '</div>'; // 코드 블록 종료
-    }
-
+    // 변환된 HTML을 content-container에 삽입
     contentContainer.innerHTML = html;
 }
