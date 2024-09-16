@@ -1,73 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-time Post Board</title>
-    <script src="/socket.io/socket.io.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        .post {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        textarea {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>메모장</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Post Board</h1>
-    <textarea id="postInput" placeholder="Write something..."></textarea>
-    <button id="postButton">Post</button>
-    <div id="posts"></div>
+    <h1>실시간 메모장</h1>
+    <textarea id="memo" placeholder="메모를 작성하세요..."></textarea>
 
-    <script>
-        const socket = io();
-        const postInput = document.getElementById('postInput');
-        const postButton = document.getElementById('postButton');
-        const postsDiv = document.getElementById('posts');
-
-        // 기존 글 불러오기
-        socket.on('loadPosts', (posts) => {
-            console.log('Loading posts:', posts); // 기존 글 로드 확인
-            postsDiv.innerHTML = '';
-            posts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'post';
-                postElement.textContent = post;
-                postsDiv.appendChild(postElement);
-            });
-        });
-
-        // 글 추가
-        socket.on('updatePosts', (posts) => {
-            console.log('Updated posts:', posts); // 업데이트된 글 확인
-            postsDiv.innerHTML = '';
-            posts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'post';
-                postElement.textContent = post;
-                postsDiv.appendChild(postElement);
-            });
-        });
-
-        // 새 글 작성 후 서버로 전송
-        postButton.addEventListener('click', () => {
-            const post = postInput.value.trim();
-            if (post) {
-                console.log('Sending new post:', post); // 새로운 글 전송 확인
-                socket.emit('newPost', post);
-                postInput.value = '';
-            }
-        });
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
