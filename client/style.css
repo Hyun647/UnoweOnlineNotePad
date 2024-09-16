@@ -61,6 +61,7 @@ textarea {
     font-size: 14px; /* 텍스트 크기 줄이기 */
     box-sizing: border-box;
     transition: width 0.3s; /* 부드러운 전환 효과 추가 */
+    resize: none;
 }
 
 #content-container {
