@@ -19,7 +19,7 @@ Unowe Online NotePad는 **실시간 메모 공유**와 **코드 블록 삽입** 
 ## 📂 프로젝트 구조
 
 ```bash
-Unowe-NotePad/
+project6520/
 │
 ├── public/               # 정적 파일 (HTML, CSS, JS)
 │   ├── app.js            # 클라이언트 측 JavaScript
