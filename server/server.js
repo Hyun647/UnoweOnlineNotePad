@@ -17,11 +17,13 @@ wss.on('connection', (ws) => {
     console.log('클라이언트가 연결되었습니다.');
 
     ws.on('message', (message) => {
-        console.log('받은 메시지:', message);
+        // 받은 메시지를 문자열로 변환
+        const text = message.toString();
+    
         // 모든 클라이언트에게 메모 전송
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
-                client.send(message);
+                client.send(text);  // text를 전송
             }
         });
     });
