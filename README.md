@@ -57,6 +57,10 @@ Node.js와 WebSocket을 사용하여 클라이언트 간의 **실시간 데이�
 ### 마크다운 실시간 렌더링 화면
 ![마크다운 렌더링](https://github.com/Hyun647/hyun647.github.io/blob/master/images/UnoweOnlineNotepad_img1.png?raw=true)
 
+
+### 뷰어 모드
+![뷰어 모드](https://github.com/Hyun647/hyun647.github.io/blob/master/images/UnoweOnlineNotepad_img2.png?raw=true)
+
 ---
 
 ## 🤝 기여 방법
