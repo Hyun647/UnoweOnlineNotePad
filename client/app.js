@@ -1,6 +1,6 @@
 // app.js
 
-const socket = new WebSocket('ws://110.15.29.199:3000');
+const socket = new WebSocket('ws://110.15.29.199:3001');
 
 const memo = document.getElementById('memo');
 

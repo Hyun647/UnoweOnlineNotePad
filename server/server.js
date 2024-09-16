@@ -23,14 +23,14 @@ wss.on('connection', (ws) => {
     // 클라이언트로부터 메시지를 받았을 때 처리
     ws.on('message', (message) => {
         const text = message.toString();
-        
+
         // 저장된 메모를 업데이트
         savedMemo = text;
 
         // 모든 클라이언트에게 메모 전송
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
-                client.send(savedMemo);
+                client.send(savedMemo);  // 기존 메모를 덮어쓰기
             }
         });
     });
@@ -41,6 +41,6 @@ wss.on('connection', (ws) => {
 });
 
 // 서버 실행
-server.listen(3000, () => {
-    console.log('서버가 http://localhost:3000 에서 실행 중입니다.');
+server.listen(3001, () => {
+    console.log('서버가 http://localhost:3001 에서 실행 중입니다.');
 });
