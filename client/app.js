@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://110.15.29.199:3001');
+const socket = new WebSocket('ws://110.15.29.199:6521');
 
 const toggleButton = document.getElementById('toggle-input');
 const memo = document.getElementById('memo');
@@ -14,11 +14,14 @@ toggleButton.addEventListener('click', () => {
     memo.classList.toggle('hidden');
     if (memo.classList.contains('hidden')) {
         contentContainer.style.flex = '1'; // 입력창이 숨겨졌을 때
+        addCodeBlockButton.style.display = 'none'; // 코드 블록 추가 버튼 숨기기
     } else {
         contentContainer.style.flex = '0.5'; // 입력창이 보일 때
         memo.style.flex = '0.5'; // 입력창이 보일 때
+        addCodeBlockButton.style.display = 'block'; // 코드 블록 추가 버튼 보이기
     }
 });
+
 memo.addEventListener('input', () => {
     clearTimeout(typingTimer);
     typingTimer = setTimeout(() => {
@@ -76,4 +79,3 @@ function renderContent(content) {
     // 변환된 HTML을 content-container에 삽입
     contentContainer.innerHTML = html;
 }
-
