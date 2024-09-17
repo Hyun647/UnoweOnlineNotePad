@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://110.15.29.199:3001');
+const socket = new WebSocket('ws://110.15.29.199:6521');
 
 const toggleButton = document.getElementById('toggle-input');
 const memo = document.getElementById('memo');

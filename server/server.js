@@ -41,6 +41,6 @@ wss.on('connection', (ws) => {
 });
 
 // 서버 실행
-server.listen(3001, () => {
-    console.log('서버가 http://localhost:3001 에서 실행 중입니다.');
+server.listen(3000, () => {
+    console.log('서버가 http://localhost:3000 에서 실행 중입니다.');
 });

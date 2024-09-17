@@ -94,7 +94,7 @@ textarea:not(.hidden) ~ #add-code-block {
 
 /* 작은 화면 (모바일)에서 레이아웃 조정 */
 @media (max-width: 768px) {
-    h1 {
+    header {
         display: none;
     }
 
