@@ -30,7 +30,7 @@ memo.addEventListener('input', () => {
 
     if (!isTyping) {
         isTyping = true; // 타이핑 중임을 표시
-        console.log('타이핑 중 시작'); // 타이핑 시작 시 로그 출력
+        console.log('타이핑 시작'); // 타이핑 시작 시 로그 출력
     }
 
     typingTimer = setTimeout(() => {
@@ -39,7 +39,7 @@ memo.addEventListener('input', () => {
         console.log('서버로 메모 전송: ', message);
 
         isTyping = false; // 타이핑 완료 후 표시 해제
-        console.log('타이핑 중 완료'); // 타이핑 완료 시 로그 출력
+        console.log('타이핑 완료'); // 타이핑 완료 시 로그 출력
     }, doneTypingInterval);
 });
 
