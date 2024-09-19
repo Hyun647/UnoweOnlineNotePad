@@ -166,3 +166,19 @@ code {
     display: block; /* 기본적인 블록 스타일 유지 */
     white-space: pre-wrap; /* 줄 바꿈 및 공백 유지 */
 }
+
+/* status-indicator 스타일 정의 */
+#status-indicator {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red; /* 기본 색상은 빨간색 */
+    z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+#status-indicator.connected {
+    background-color: green; /* 연결되었을 때 초록색 */
+}

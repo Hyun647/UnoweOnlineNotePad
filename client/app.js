@@ -1,17 +1,26 @@
 const socket = new WebSocket('ws://110.15.29.199:6521');
+const statusIndicator = document.getElementById('status-indicator');
+
+socket.onopen = () => {
+    statusIndicator.classList.add('connected');
+    console.log('서버에 연결됨');
+};
+
+socket.onclose = () => {
+    statusIndicator.classList.remove('connected');
+    console.log('서버와의 연결이 종료됨');
+};
 
 const toggleButton = document.getElementById('toggle-input');
 const memo = document.getElementById('memo');
 const contentContainer = document.getElementById('content-container');
 const addCodeBlockButton = document.getElementById('add-code-block');
 
-// 타이핑 여부를 추적하는 변수
 let typingTimer;
 const doneTypingInterval = 1000; // 단어 입력 후 대기 시간
 let isTyping = false; // 타이핑 중인지 여부
 let typingStarted = false; // 타이핑 시작 여부를 추적
 
-// 토글 버튼 클릭 시 입력창 숨기기/보이기
 toggleButton.addEventListener('click', () => {
     memo.classList.toggle('hidden');
     if (memo.classList.contains('hidden')) {
@@ -24,7 +33,6 @@ toggleButton.addEventListener('click', () => {
     }
 });
 
-// 메모가 변경될 때 서버로 전송 (단어가 입력 완료된 후에 전송)
 memo.addEventListener('input', () => {
     clearTimeout(typingTimer);
 
@@ -43,7 +51,6 @@ memo.addEventListener('input', () => {
     }, doneTypingInterval);
 });
 
-// 서버에서 받은 메모를 표시
 socket.onmessage = (event) => {
     if (!isTyping) { // 타이핑 중이 아닐 때만 수신된 메모를 표시
         const data = event.data;
@@ -55,7 +62,6 @@ socket.onmessage = (event) => {
     }
 };
 
-// 코드 블록 추가 버튼 클릭 시 새로운 코드 블록 생성
 addCodeBlockButton.addEventListener('click', () => {
     const cursorPosition = memo.selectionStart;
     const beforeText = memo.value.substring(0, cursorPosition);
@@ -68,7 +74,6 @@ addCodeBlockButton.addEventListener('click', () => {
     memo.focus();
 });
 
-// 마크다운 렌더러 정의
 const renderer = new marked.Renderer();
 
 renderer.code = (code, language) => {
@@ -76,7 +81,6 @@ renderer.code = (code, language) => {
     return `<pre class="code-block">${languageLabel}<code>${code}</code></pre>`;
 };
 
-// 메모 내용에 코드 블록이 포함되어 있으면 코드 박스 생성
 function renderContent(content) {
     const html = marked.parse(content, { renderer: renderer });
     contentContainer.innerHTML = html;
