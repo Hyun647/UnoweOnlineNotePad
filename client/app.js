@@ -2,12 +2,12 @@ const socket = new WebSocket('ws://110.15.29.199:6521');
 const statusIndicator = document.getElementById('status-indicator');
 
 socket.onopen = () => {
-    statusIndicator.classList.add('connected');
+    statusIndicator.classList.add('connected'); // 초록색으로 설정
     console.log('서버에 연결됨');
 };
 
 socket.onclose = () => {
-    statusIndicator.classList.remove('connected');
+    statusIndicator.classList.remove('connected'); // 빨간색으로 설정
     console.log('서버와의 연결이 종료됨');
 };
 
@@ -84,4 +84,6 @@ renderer.code = (code, language) => {
 function renderContent(content) {
     const html = marked.parse(content, { renderer: renderer });
     contentContainer.innerHTML = html;
+    // 상태 표시기 유지
+    statusIndicator.classList.toggle('connected', socket.readyState === WebSocket.OPEN);
 }
