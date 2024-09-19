@@ -21,13 +21,14 @@ h1 {
 #container {
     display: flex;
     flex-direction: row;
-    width: 100vw; /* 전체 너비 사용 */
+    width: 95vw;
     height: calc(100vh - 50px); /* 버튼 높이 제외 */
     background-color: #2c2c2c;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     margin-bottom: 40px;
+    position: relative; /* 상태 표시기의 기준이 될 위치 설정 */
 }
 
 textarea {
@@ -80,52 +81,6 @@ textarea:not(.hidden) ~ #add-code-block {
     display: block;
 }
 
-
-/* 작은 화면 (모바일)에서 레이아웃 조정 */
-@media (max-width: 768px) {
-    header {
-        display: none;
-    }
-
-    h1 {
-        font-size: 30px; /* 모바일 화면에 맞게 크기 조정 */
-    }
-
-
-    #container {
-        flex-direction: column;
-        width: 95vw; /* 모바일 너비 */
-        height: calc(100vh); /* 버튼 높이 제외 */
-    }
-
-    textarea, #content-container {
-        width: 100%; /* 모바일 화면에 맞게 조정 */
-        height: 50vh; /* 높이 조정 */
-        /*font-size: 12px; /* 모바일 화면에 맞는 텍스트 크기 */
-    }
-
-    textarea {
-        border-bottom: 1px solid #444;
-    }
-    button {
-      
-        margin-right: 5px;
-    }
-}
-
-/* 큰 화면 (데스크탑)에서 레이아웃 조정 */
-@media (min-width: 1200px) {
-    #container {
-        width: 95vw;
-    }
-
-    textarea, #content-container {
-        width: 50%; /* 고정된 너비 */
-        height: 100%; /* 고정된 높이 */
-        font-size: 14px; /* 데스크탑 화면에서 텍스트 크기 */
-    }
-}
-
 pre.code-block {
     position: relative; /* 언어 이름을 표시할 위치 설정 */
     border: 1px solid #444;
@@ -138,7 +93,6 @@ pre.code-block {
     font-family: 'Courier New', Courier, monospace;
     overflow-x: auto; /* 코드가 너무 길면 가로 스크롤 */
     box-sizing: border-box;
-
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* 코드 블록 그림자 */
 }
 
@@ -149,7 +103,7 @@ pre.code-block .language {
     font-size: 0.75em; /* 작은 크기로 설정 */
     color: #b0b0b0; /* 언어 이름 색상 */
 }
-/* <code> 태그에 별도의 스타일을 주지 않음, 기본 스타일 유지 */
+
 code {
     display: block; /* 기본적인 블록 스타일 유지 */
     white-space: pre-wrap; /* 줄 바꿈 및 공백 유지 */
@@ -165,7 +119,6 @@ code {
     font-size: 14px; /* 텍스트 크기 줄이기 */
     box-sizing: border-box;
     transition: width 0.3s; /* 부드러운 전환 효과 추가 */
-    position: relative; /* 상태 표시기의 기준이 될 위치 설정 */
 }
 
 /* 상태 표시기 스타일 정의 */
@@ -184,15 +137,46 @@ code {
     background-color: green; /* 연결되었을 때 초록색 */
 }
 
-#container {
-    position: relative; /* 상태 표시기의 기준이 될 위치 설정 */
-    display: flex;
-    flex-direction: row;
-    width: 100vw; /* 전체 너비 사용 */
-    height: calc(100vh - 50px); /* 버튼 높이 제외 */
-    background-color: #2c2c2c;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    margin-bottom: 40px;
+/* 모바일 화면 (모바일)에서 레이아웃 조정 */
+@media (max-width: 768px) {
+    header {
+        display: none; /* 헤더 숨김 */
+    }
+
+    h1 {
+        font-size: 30px; /* 제목 크기 조정 */
+    }
+
+    #container {
+        flex-direction: column; /* 위 아래로 나누기 */
+        width: 95vw; /* 모바일 너비 */
+        height: calc(100vh - 50px); /* 버튼 높이 제외 */
+    }
+
+    textarea {
+        width: 100%; /* 너비 조정 */
+        height: 50vh; /* 높이 조정 */
+        font-size: 12px; /* 텍스트 크기 조정 */
+        border-bottom: 1px solid #444; /* 구분선 추가 */
+    }
+
+    #content-container {
+        width: 100%; /* 너비 조정 */
+        height: 50vh; /* 높이 조정 */
+        overflow: auto; /* 스크롤 가능 */
+    }
+
+    button {
+        margin-right: 5px; /* 버튼 위치 조정 */
+    }
+
+    /* 입력창이 숨겨진 상태에서 코드 블록 추가 버튼 숨기기 */
+    textarea.hidden ~ #add-code-block {
+        display: none;
+    }
+
+    /* 입력창이 보일 때 코드 블록 추가 버튼 표시하기 */
+    textarea:not(.hidden) ~ #add-code-block {
+        display: block;
+    }
 }
