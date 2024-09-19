@@ -7,7 +7,7 @@ const addCodeBlockButton = document.getElementById('add-code-block');
 
 // 메모가 변경될 때 서버로 전송 (단어가 입력 완료된 후에 전송)
 let typingTimer; // 타이머 변수
-const doneTypingInterval = 500; // 단어 입력 후 대기 시간 (500ms)
+const doneTypingInterval = 1000; // 단어 입력 후 대기 시간 (500ms)
 
 // 토글 버튼 클릭 시 입력창 숨기기/보이기
 toggleButton.addEventListener('click', () => {
