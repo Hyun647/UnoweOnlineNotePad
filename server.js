@@ -91,4 +91,4 @@ setInterval(async () => {
   } catch (err) {
     console.error('데이터베이스 연결 상태 확인: 오류', err);
   }
-}, 60000); // 1분마다 확인
+}, 60000); // 1분마다 확인~
