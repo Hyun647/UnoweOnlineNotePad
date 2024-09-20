@@ -12,12 +12,12 @@ function saveMemo() {
       if (data.success) {
         alert(`메모가 저장되었습니다. ID: ${data.id}`);
       } else {
-        alert('메모 저장에 실패했습니다.');
+        alert('메모 저장에 실패했습니다: ' + data.message);
       }
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('메모 저장 중 오류가 발생했습니다.');
+      alert('메모 저장 중 오류가 발생했습니다: ' + error);
     });
 }
 
