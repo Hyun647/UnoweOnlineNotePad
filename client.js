@@ -1,6 +1,6 @@
 function saveMemo() {
   const content = document.getElementById('memo').value;
-  fetch('http://localhost:3000/save', {
+  fetch('http://110.15.29.199:3000/save', {  // 서버 IP 주소로 변경
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

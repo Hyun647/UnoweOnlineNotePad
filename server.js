@@ -27,7 +27,9 @@ pool.getConnection()
 app.post('/save', async (req, res) => {
   try {
     const { content } = req.body;
+    console.log('받은 내용:', content);  // 로그 추가
     const [result] = await pool.query('INSERT INTO notes (content) VALUES (?)', [content]);
+    console.log('삽입 결과:', result);  // 로그 추가
     res.json({ success: true, id: result.insertId });
   } catch (error) {
     console.error('메모 저장 중 오류:', error);
