@@ -11,8 +11,25 @@ const pool = mysql.createPool({
   user: 'root',
   password: '1590',
   database: 'notepad_db',
-  port: 9876
+  port: 9876,
+  connectTimeout: 10000 // 연결 시간 초과를 10초로 설정
 });
+
+// 서버 시작 시 데이터베이스 연결 테스트
+async function testDatabaseConnection() {
+  try {
+    const connection = await pool.getConnection();
+    console.log('데이터베이스 연결 성공');
+    connection.release();
+  } catch (err) {
+    console.error('데이터베이스 연결 오류:', err);
+    console.error('오류 코드:', err.code);
+    console.error('오류 메시지:', err.message);
+    console.error('오류 스택:', err.stack);
+  }
+}
+
+testDatabaseConnection();
 
 // 데이터베이스 연결 테스트 및 로깅
 pool.getConnection()
@@ -62,6 +79,7 @@ app.get('/load/:id', async (req, res) => {
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`서버가 http://localhost:${PORT}에서 실행 중입니다.`);
+  testDatabaseConnection(); // 서버 시작 시 데이터베이스 연결 테스트
 });
 
 // 주기적으로 데이터베이스 연결 상태 확인
