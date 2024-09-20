@@ -42,6 +42,16 @@ function testDatabaseConnection() {
 
 testDatabaseConnection();
 
+// 서버 시작 시 가장 최근 메모 로드
+pool.query('SELECT content FROM notes ORDER BY id DESC LIMIT 1', (error, results) => {
+    if (error) {
+        console.error('초기 메모 로드 중 오류:', error);
+    } else if (results.length > 0) {
+        savedMemo = results[0].content;
+        console.log('초기 메모 로드 완료');
+    }
+});
+
 // 정적 파일 제공 (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -49,8 +59,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 wss.on('connection', (ws) => {
     console.log('새 클라이언트가 연결되었습니다.');
 
-    // 새로운 클라이언트에게 저장된 메모 전달
-    ws.send(savedMemo);
+    // 데이터베이스에서 가장 최근 메모를 가져와 클라이언트에게 전송
+    pool.query('SELECT content FROM notes ORDER BY id DESC LIMIT 1', (error, results) => {
+        if (error) {
+            console.error('메모 로드 중 오류:', error);
+        } else if (results.length > 0) {
+            savedMemo = results[0].content;
+            ws.send(savedMemo);
+        }
+    });
 
     // 클라이언트로부터 메시지를 받았을 때 처리
     ws.on('message', (message) => {
